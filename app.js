@@ -19,8 +19,8 @@ app.use((req, res, next)=>{
 })
 
 app.use('/auth', AuthRouter)
-app.use('/auth', AgencyRouter)
-app.use('/auth', ClientRouter)
+app.use('/agency', AgencyRouter)
+app.use('/client', ClientRouter)
 
 //for unhandled request
 app.use('*', (req, res, next)=>{
