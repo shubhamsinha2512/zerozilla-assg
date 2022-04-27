@@ -30,7 +30,8 @@ const AgencySchema = mongoose.Schema({
     },
     clients:[
         {
-            type: mongoose.Types.ObjectId
+            type: mongoose.Schema.ObjectId,
+            ref: 'Client'
         }
     ]
 },
@@ -38,6 +39,14 @@ const AgencySchema = mongoose.Schema({
     timestamps: true
 }
 )
+
+AgencySchema.pre(/^find/, function(next){
+    this.populate({
+        path: 'clients'
+    })
+
+    next()
+})
 
 const Agency = mongoose.model('Agency', AgencySchema);
 
