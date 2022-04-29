@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 
 
 const AgencySchema = mongoose.Schema({
-    agencyId:{
-        type: mongoose.Types.ObjectId(),
-    },
     name:{
         type:String,
         required:[true, "Please provide agency name"]
@@ -42,7 +39,8 @@ const AgencySchema = mongoose.Schema({
 
 AgencySchema.pre(/^find/, function(next){
     this.populate({
-        path: 'clients'
+        path: 'clients',
+        select: '-__v -createdAt -updatedAt -agency'
     })
 
     next()

@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 
 
 const ClientSchema = mongoose.Schema({
-    clientId:{
-        type: mongoose.Types.ObjectId()
-    },
     agency:{
         type:mongoose.Schema.ObjectId,
         ref:'Agency',
@@ -35,11 +32,13 @@ const ClientSchema = mongoose.Schema({
 
 ClientSchema.pre(/^find/, function(next){
     this.populate({
-        path: 'agency'
+        path: 'agency',
+        select: '-__v -createdAt -updatedAt -clients'
     })
 
     next()
 })
+
 
 const Client = mongoose.model('Client', ClientSchema);
 
